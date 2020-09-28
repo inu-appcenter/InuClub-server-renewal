@@ -1,0 +1,7 @@
+# node
+**/node_modules
+
+# environment various
+**/.env
+
+**/.DS_Store
