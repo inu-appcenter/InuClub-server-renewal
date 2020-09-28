@@ -9,7 +9,7 @@ function server() {
 
   // * port binding
   app.listen(9000, () => {
-    console.log('server start');
+    console.log('server start!!');
   });
 }
 
