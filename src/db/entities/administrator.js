@@ -8,6 +8,10 @@ module.exports = (sequelize, Datatypes) => {
         type: Datatypes.STRING,
         allowNull: false,
       },
+      APassword: {
+        type: Datatypes.STRING,
+        allowNull: false,
+      },
       AName: {
         type: Datatypes.STRING,
         allowNull: false,
