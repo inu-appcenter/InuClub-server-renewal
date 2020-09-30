@@ -1,7 +1,10 @@
 const jwt = require('jsonwebtoken');
 const key = require('../../config/jwt.Admin').key;
 
-const authMiddleware = {
+const adminMiddleware = {
+  adminLoginValid: () => {},
+  adminSignupValid: () => {},
+
   isLoggedIn: (req, res, next) => {
     if (req.isAuthenticated()) {
       next();
@@ -16,11 +19,7 @@ const authMiddleware = {
       res.status(403).json({ success: false, message: '로그인 필요 없음' });
     }
   },
-  logoutProcess: (req, res, next) => {
-    req.logOut();
-    req.session.destroy();
-    res.status(201).send('logout ok');
-  },
+
   verifyToken: (req, res, next) => {
     const token = req.body.token;
 
@@ -42,4 +41,4 @@ const authMiddleware = {
   },
 };
 
-module.exports = authMiddleware;
+module.exports = adminMiddleware;

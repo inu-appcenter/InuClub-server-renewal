@@ -1,4 +1,5 @@
 const express = require('express');
+const routers = require('./api/routes');
 const loaders = require('./loaders');
 
 function server() {
@@ -6,6 +7,9 @@ function server() {
 
   // * load application middleware
   loaders(app);
+
+  // * register routers
+  routers(app);
 
   // * port binding
   app.listen(9000, () => {
