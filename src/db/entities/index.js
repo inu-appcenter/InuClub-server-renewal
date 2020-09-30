@@ -9,13 +9,11 @@ let sequelize = new Sequelize(
   config.password,
   config,
 );
-db.Administrator = require('./administrator.js')(
-  sequelize,
-  Sequelize.DataTypes,
-);
+
+db.Administrator = require('./administrator')(sequelize, Sequelize.DataTypes);
 db.Club = require('./club')(sequelize, Sequelize.DataTypes);
-db.File = require('./File')(sequelize, Sequelize.DataTypes);
-db.Event = require('./Event')(sequelize, Sequelize.DataTypes);
+db.File = require('./file')(sequelize, Sequelize.DataTypes);
+db.Event = require('./event')(sequelize, Sequelize.DataTypes);
 
 Object.keys(db).forEach((modelName) => {
   if (db[modelName].associate) {
