@@ -1,5 +1,3 @@
-const { sequelize } = require('.');
-
 module.exports = (sequelize, Datatypes) => {
   const Administrator = sequelize.define(
     'Administrator',
