@@ -1,3 +1,9 @@
+const {
+  addComment,
+  modifyComment,
+  removeComment,
+} = require('../../../controllers/votes/comments.controller');
+
 const router = require('express').Router();
 
 function commentsRouter() {
@@ -6,20 +12,20 @@ function commentsRouter() {
    * @route POST /votes/comments
    * @request @body {comment}
    */
-  router.post('/', (req, res) => {});
+  router.post('/', addComment);
 
   /**
    * @description 댓글 수정
    * @route PUT /votes/comments/:commentId
    * @request @body {comment}
    */
-  router.put('/:commentId', (req, res) => {});
+  router.put('/:commentId', modifyComment);
 
   /**
    * @description 댓글 삭제
    * @route DELETE /votes/comments/:commentId
    */
-  router.delete('/:commentId', (req, res) => {});
+  router.delete('/:commentId', removeComment);
 
   return router;
 }
