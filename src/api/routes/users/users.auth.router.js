@@ -1,4 +1,6 @@
-function usersAuthRouter({ router }) {
+const router = require('express').Router();
+
+function usersAuthRouter() {
   router.get('/', (req, res) => {
     res.send('users test');
   });
@@ -91,6 +93,8 @@ function usersAuthRouter({ router }) {
       }
     });
   });
+
+  return router;
 }
 
 module.exports = usersAuthRouter;

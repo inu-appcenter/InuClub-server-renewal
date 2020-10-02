@@ -2,8 +2,8 @@ const usersAuthRouter = require('./users.auth.router');
 const profileRouter = require('./profile.router');
 
 function usersRouter({ router }) {
-  usersAuthRouter({ router });
-  profileRouter({ router });
+  router.use('/auth', usersAuthRouter());
+  router.use('profile', profileRouter());
 
   return router;
 }

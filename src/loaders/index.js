@@ -1,4 +1,4 @@
-const loadExpressMiddleware = require('./middleware.loader');
+const loadExpressMiddleware = require('./express.loader');
 
 function loaders({ app }) {
   console.log('loaders start');

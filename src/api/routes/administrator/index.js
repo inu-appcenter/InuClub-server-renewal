@@ -1,7 +1,7 @@
 const adminAuthRouter = require('./admin.auth.router');
 
 function adminRouter({ router }) {
-  adminAuthRouter({ router });
+  router.use('/auth', adminAuthRouter());
   return router;
 }
 

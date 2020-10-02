@@ -1,4 +1,6 @@
-function profileRouter({ router }) {
+const router = require('express').Router();
+
+function profileRouter() {
   // router.use(isLogin);
   /**
    * @description 프로필 수정
@@ -61,26 +63,7 @@ function profileRouter({ router }) {
     res.status(200).json(decodedQuery);
   });
 
-  router.post('/tmpPasswd', async (req, res) => {
-    const tmpPasswdQuery = {
-      url: config.tmpPasswd,
-      headers: {
-        'Content-Type': 'application/x-www-form-urlencoded',
-      },
-      form: {
-        id: req.body.id,
-        name: req.body.name,
-      },
-      method: 'post',
-      json: true,
-    };
-    request.post(tmpPasswdQuery, (error, result) => {
-      if (error) return res.json(error.message);
-      else {
-        return res.json(result.body);
-      }
-    });
-  });
+  return router;
 }
 
 module.exports = profileRouter;
