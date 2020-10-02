@@ -1,4 +1,7 @@
 function usersAuthRouter({ router }) {
+  router.get('/', (req, res) => {
+    res.send('users test');
+  });
   /**
    * @description INU 통합 회원가입
    * @routes POST /auth/signup
