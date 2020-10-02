@@ -1,8 +1,9 @@
 const introRouter = require('./intro.router');
+const eventRouter = require('./events.router');
 
 function clubsRouter({ router }) {
-  introRouter({ router });
-
+  router.use('/intro', introRouter());
+  router.use('/events', eventRouter());
   return router;
 }
 
