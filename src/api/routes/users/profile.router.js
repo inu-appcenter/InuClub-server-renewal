@@ -1,4 +1,4 @@
-function profileRouter(router) {
+function profileRouter({ router }) {
   // router.use(isLogin);
   /**
    * @description 프로필 수정

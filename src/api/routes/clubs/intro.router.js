@@ -11,7 +11,7 @@
 // } = require('../../controllers/club.controller');
 // const router = require('express').Router();
 
-function introRouter(router) {
+function introRouter({ router }) {
   /**
    * @description 동아리 소개 불러오기
    * @route GET /clubs/intro/:id

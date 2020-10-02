@@ -6,10 +6,10 @@ function server() {
   const app = express();
 
   // * load application middleware
-  loaders(app);
+  loaders({ app });
 
   // * register routers
-  routers(app);
+  routers({ app });
 
   // * port binding
   app.listen(9000, () => {

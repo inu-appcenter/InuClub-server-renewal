@@ -1,11 +1,14 @@
-function loadExpressMiddleware(app) {
+const express = require('express');
+const morgan = require('morgan');
+
+function loadExpressMiddleware({ app }) {
   console.log('loadExpressMiddleware start');
 
-  const express = require('express');
-  const distEnv = process.env.NODE_ENV || 'development';
-  app.use(require('morgan')(distEnv === 'development' ? 'dev' : 'common'));
+  app.use(morgan('dev'));
   app.use(express.json());
   app.use(express.urlencoded({ extended: true }));
+
+  console.log('loadExpressMiddleware finish');
 }
 
 module.exports = loadExpressMiddleware;

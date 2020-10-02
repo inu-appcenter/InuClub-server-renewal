@@ -1,4 +1,4 @@
-function usersAuthRouter(router) {
+function usersAuthRouter({ router }) {
   /**
    * @description INU 통합 회원가입
    * @routes POST /auth/signup
