@@ -7,7 +7,7 @@ const {
   adminSignupValid,
 } = require('../../middlewares/admin.middleware');
 
-function adminAuthRouter(router) {
+function adminAuthRouter({ router }) {
   /**
    * @description 관리자 로그인
    * @route POST /admin/auth/login

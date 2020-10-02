@@ -1,7 +1,7 @@
 const introRouter = require('./intro.router');
 
-function clubsRouter(router) {
-  introRouter(router);
+function clubsRouter({ router }) {
+  introRouter({ router });
 
   return router;
 }

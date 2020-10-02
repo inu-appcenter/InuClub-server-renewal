@@ -1,12 +1,12 @@
 const AdminService = {
-  login: async (email, password) => {
+  login: async ({ adminId, password }) => {
     try {
       return 1;
     } catch (error) {
       throw new Error(error);
     }
   },
-  signup: (email, name, password, clubId) => {
+  signup: ({}) => {
     try {
     } catch (error) {
       throw new Error(error);
