@@ -1,6 +1,6 @@
 const Sequelize = require('sequelize');
 const env = process.env.NODE_ENV || 'development';
-const config = require('/../config/config.json')[env];
+const config = require('../../config/config')[env];
 const db = {};
 
 let sequelize = new Sequelize(
@@ -10,10 +10,12 @@ let sequelize = new Sequelize(
   config,
 );
 
-db.Administrator = require('./administrator')(sequelize, Sequelize.DataTypes);
-db.Club = require('./club')(sequelize, Sequelize.DataTypes);
-db.File = require('./file')(sequelize, Sequelize.DataTypes);
-db.Event = require('./event')(sequelize, Sequelize.DataTypes);
+db.Admin = require('./admin.entity')(sequelize, Sequelize.DataTypes);
+db.Club = require('./clubs.entity')(sequelize, Sequelize.DataTypes);
+db.Comment = require('./comments.entity')(sequelize, Sequelize.DataTypes);
+db.Event = require('./events.entity')(sequelize, Sequelize.DataTypes);
+db.User = require('./users.entity')(sequelize, Sequelize.DataTypes);
+db.Vote = require('./votes.entity')(sequelize, Sequelize.DataTypes);
 
 Object.keys(db).forEach((modelName) => {
   if (db[modelName].associate) {

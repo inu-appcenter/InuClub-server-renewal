@@ -1,6 +1,26 @@
-const config = {};
-config.signIn = 'http://117.16.191.242:7003/signIn';
-config.signUp = 'http://117.16.191.242:7003/signUp';
-config.changeInfo = 'http://117.16.191.242:7003/changeInfo';
-config.tmpPasswd = 'http://117.16.191.242:7003/changeInfo/tmpPasswd';
-module.exports = config;
+require('dotenv').config();
+
+const dbConfig = {
+  development: {
+    username: process.env.DB_USERNAME,
+    password: process.env.DB_PASSWORD,
+    database: process.env.DB_DATABASE,
+    host: process.env.DB_HOST,
+    dialect: 'mysql',
+  },
+  test: {
+    username: 'root',
+    password: null,
+    database: 'database_test',
+    host: '127.0.0.1',
+    dialect: 'mysql',
+  },
+  production: {
+    username: 'root',
+    password: null,
+    database: 'database_production',
+    host: '127.0.0.1',
+    dialect: 'mysql',
+  },
+};
+module.exports = dbConfig;
