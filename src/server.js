@@ -1,5 +1,5 @@
 const express = require('express');
-const errorHandler = require('../utils/error.handler.util');
+const errorHandler = require('./utils/error.handler.util');
 const routers = require('./api/routes');
 const loaders = require('./loaders');
 
