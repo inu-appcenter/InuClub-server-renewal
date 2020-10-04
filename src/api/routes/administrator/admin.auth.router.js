@@ -13,6 +13,13 @@ function adminAuthRouter({ APIRouter }) {
    * @request @body {email, password}
    */
   router.post('/login', adminLogin);
+
+  /**
+   * @description 관리자 회원가입
+   * @route POST /admin/auth/signup
+   * @request @body {email, name, phone, password}
+   */
+  router.post('/signup', adminSignup);
 }
 
 module.exports = adminAuthRouter;

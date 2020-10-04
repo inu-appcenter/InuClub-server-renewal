@@ -1,7 +1,13 @@
 const CommentsController = {
-  addComment: (req, res, next) => {},
-  modifyComment: (req, res, next) => {},
-  removeComment: (req, res, next) => {},
+  addComment: (req, res, next) => {
+    res.send('add comment');
+  },
+  modifyComment: (req, res, next) => {
+    res.send('modify comment');
+  },
+  removeComment: (req, res, next) => {
+    res.send('remove comment');
+  },
 };
 
 module.exports = CommentsController;

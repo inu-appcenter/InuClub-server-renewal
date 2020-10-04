@@ -10,6 +10,14 @@ const router = require('express').Router();
 
 function introRouter({ APIRouter }) {
   APIRouter.use('/intro', router);
+
+  /**
+   * @description 검색바에서 동아리 리스트 불러오기
+   * @route GET /clubs/intro/search
+   * @queryString {clubName}
+   */
+  router.get('/search', searchClub);
+
   /**
    * @description 동아리 소개 조회
    * @route GET /clubs/intro/:clubId
@@ -39,16 +47,9 @@ function introRouter({ APIRouter }) {
 
   /**
    * @description 카테고리별로 동아리 리스트 불러오기
-   * @route GET /clubs/intro/category/:clubId
+   * @route GET /clubs/intro/category/:categoryNum
    */
-  router.get('/category/:clubId', getClubsByCategory);
-
-  /**
-   * @description 검색바에서 동아리 리스트 불러오기
-   * @route GET /clubs/intro/search
-   * @queryString {clubName}
-   */
-  router.get('/search', searchClub);
+  router.get('/category/:categoryNum', getClubsByCategory);
 }
 
 module.exports = introRouter;
