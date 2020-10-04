@@ -1,5 +1,3 @@
-const User_Voting = require('./User_Voting');
-
 module.exports = (sequelize, Datatypes) => {
   const User = sequelize.define(
     'User',
