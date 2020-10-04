@@ -3,10 +3,10 @@ const {
   userLogin,
   userWithdrawal,
 } = require('../../../controllers/users/users.auth.controller');
-
 const router = require('express').Router();
 
-function usersAuthRouter() {
+function usersAuthRouter({ APIRouter }) {
+  APIRouter.use('/auth', router);
   /**
    * @description INU 통합 회원가입
    * @routes POST /auth/signup
@@ -26,8 +26,6 @@ function usersAuthRouter() {
    * @routes POST /auth/withdrawal
    */
   router.post('/withdrawal', userWithdrawal);
-
-  return router;
 }
 
 module.exports = usersAuthRouter;

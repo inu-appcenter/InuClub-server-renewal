@@ -6,10 +6,10 @@ const {
   getClubsByCategory,
   searchClub,
 } = require('../../../controllers/clubs/intro.controller');
-
 const router = require('express').Router();
 
-function introRouter() {
+function introRouter({ APIRouter }) {
+  APIRouter.use('/intro', router);
   /**
    * @description 동아리 소개 조회
    * @route GET /clubs/intro/:clubId
@@ -49,8 +49,6 @@ function introRouter() {
    * @queryString {clubName}
    */
   router.get('/search', searchClub);
-
-  return router;
 }
 
 module.exports = introRouter;
