@@ -1,10 +1,15 @@
 const loadExpressMiddleware = require('./express.loader');
+const loadSequelize = require('./sequelize.loader');
 
-function loaders({ app }) {
+async function loaders({ app }) {
   console.log('loaders start');
 
-  // * application level middleware
+  // application level middleware
   loadExpressMiddleware({ app });
+
+  // sequelize sync
+  await loadSequelize();
+
   console.log('loaders finish');
 }
 

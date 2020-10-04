@@ -40,6 +40,7 @@ module.exports = (sequelize, Datatypes) => {
   Club.associate = (db) => {
     db.Club.belongsTo(db.Admin);
     db.Club.belongsTo(db.User);
+    db.Club.hasMany(db.Image);
   };
   return Club;
 };

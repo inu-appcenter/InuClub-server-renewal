@@ -2,10 +2,7 @@ const {
   adminLogin,
   adminSignup,
 } = require('../../../controllers/administrator/admin.controller');
-const {
-  adminLoginValid,
-  adminSignupValid,
-} = require('../../middlewares/admin.middleware');
+
 const router = require('express').Router();
 
 function adminAuthRouter() {
@@ -17,7 +14,7 @@ function adminAuthRouter() {
    * @route POST /admin/auth/login
    * @request @body {email, password}
    */
-  router.post('/login', adminLoginValid, adminLogin);
+  router.post('/login', adminLogin);
 
   return router;
 }
