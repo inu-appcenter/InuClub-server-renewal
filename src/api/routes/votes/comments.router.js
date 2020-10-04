@@ -3,10 +3,10 @@ const {
   modifyComment,
   removeComment,
 } = require('../../../controllers/votes/comments.controller');
-
 const router = require('express').Router();
 
-function commentsRouter() {
+function commentsRouter({ APIRouter }) {
+  APIRouter.use('/comments', router);
   /**
    * @description 댓글 생성
    * @route POST /votes/comments
@@ -26,8 +26,6 @@ function commentsRouter() {
    * @route DELETE /votes/comments/:commentId
    */
   router.delete('/:commentId', removeComment);
-
-  return router;
 }
 
 module.exports = commentsRouter;

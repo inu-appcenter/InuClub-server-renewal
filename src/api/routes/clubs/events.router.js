@@ -5,10 +5,10 @@ const {
   modifyEvent,
   removeEvent,
 } = require('../../../controllers/clubs/events.controller');
-
 const router = require('express').Router();
 
-function eventRouter() {
+function eventRouter({ APIRouter }) {
+  APIRouter.use('/events', router);
   /**
    * @description 행사 리스트 조회
    * @route GET /clubs/events/
@@ -40,8 +40,6 @@ function eventRouter() {
    * @route DELETE /clubs/events/:eventId
    */
   router.delete('/:eventId', removeEvent);
-
-  return router;
 }
 
 module.exports = eventRouter;
