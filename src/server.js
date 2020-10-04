@@ -1,17 +1,21 @@
 const express = require('express');
+const errorHandler = require('../utils/error.handler.util');
 const routers = require('./api/routes');
 const loaders = require('./loaders');
 
-function server() {
+async function server() {
   const app = express();
 
-  // * load application middleware
-  loaders({ app });
+  // load application middleware
+  await loaders({ app });
 
-  // * register routers
+  // register routers
   routers({ app });
 
-  // * port binding
+  // error handler
+  errorHandler({ app });
+
+  // port binding
   app.listen(9000, () => {
     console.log('server start!!');
   });
