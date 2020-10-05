@@ -3,6 +3,7 @@ const {
   userLogin,
   userWithdrawal,
 } = require('../../../controllers/users/users.auth.controller');
+const { isUserLogin } = require('../../middlewares/auth/jwt.auth');
 const router = require('express').Router();
 
 function usersAuthRouter({ APIRouter }) {
@@ -25,7 +26,11 @@ function usersAuthRouter({ APIRouter }) {
    * @description 서비스 회원 탈퇴
    * @routes DELETE /users/auth/withdrawal
    */
-  router.delete('/withdrawal', userWithdrawal);
+  router.delete(
+    '/withdrawal',
+    isUserLogin({ key: 'inu-auth' }),
+    userWithdrawal,
+  );
 }
 
 module.exports = usersAuthRouter;
