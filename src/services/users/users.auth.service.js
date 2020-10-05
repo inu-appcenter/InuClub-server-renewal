@@ -8,7 +8,7 @@ const jwt = require('../../utils/jwt.util');
  */
 const UsersAuthService = {
   /**
-   * @returns Promise
+   * @returns Promise<토큰이 담긴 데이터 객체>
    */
   login: async ({ studentId, password }) => {
     const requestBody = { id: studentId, passwd: password };
@@ -16,6 +16,9 @@ const UsersAuthService = {
     return data;
   },
 
+  /**
+   * @returns void
+   */
   signup: async ({ studentId, token }) => {
     const user = await User.findOne({ where: { studentId } });
     if (!user) {
@@ -24,6 +27,9 @@ const UsersAuthService = {
     }
   },
 
+  /**
+   * @returns Promise<성공 또는 실패 응답이 담겨있는 객체>
+   */
   inuSignup: async ({ studentId, password, phone, major, name }) => {
     const requestBody = {
       id: studentId,
@@ -32,13 +38,15 @@ const UsersAuthService = {
       major,
       name,
     };
-    const { answer } = await inuAuth.post('/signUp', requestBody);
-    return answer;
+    const { data } = await inuAuth.post('/signUp', requestBody);
+    return data;
   },
 
+  /**
+   * @returns Promise<1 | 0>
+   */
   withdrawal: async ({ studentId }) => {
-    const result = await User.destroy({ where: { id: studentId } });
-    console.log('서비스 탈퇴:', result);
+    const result = await User.destroy({ where: { studentId } });
     return result;
   },
 };
