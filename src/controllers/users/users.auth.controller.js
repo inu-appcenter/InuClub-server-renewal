@@ -5,7 +5,7 @@ const UsersAuthController = {
     const { studentId } = req.body;
     try {
       const data = await UsersAuthService.login(req.body);
-      UsersAuthService.signup({ studentId, token: data.token });
+      await UsersAuthService.signup({ studentId, token: data.token });
       res.status(201).json({ success: true, token: data.token });
     } catch (e) {
       next(e);
