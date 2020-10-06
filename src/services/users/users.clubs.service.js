@@ -1,4 +1,4 @@
-const { User, Club } = require('../../db/entities');
+const { User, Club, Image } = require('../../db/entities');
 
 const UsersClubsService = {
   /**
@@ -6,18 +6,19 @@ const UsersClubsService = {
    * @returns Promise<가입한 클럽들 | null>
    */
   getClubsInfo: async ({ studentId }) => {
-    const myClubs = await User.findOne({
+    const user = await User.findOne({
       where: { studentId },
+      attributes: ['id'],
       include: [
         {
           model: Club,
-          as: 'Clubs',
+          as: 'myClub',
           attributes: ['id', 'name', 'site'],
           include: [{ model: Image }],
         },
       ],
     });
-    if (myClubs) return myClubs;
+    if (user) return user;
     else return null;
   },
 
