@@ -22,10 +22,6 @@ module.exports = (sequelize, Datatypes) => {
         type: Datatypes.STRING(20),
         allowNull: false,
       },
-      personnel: {
-        type: Datatypes.INTEGER,
-        allowNull: false,
-      },
       url: {
         type: Datatypes.STRING(50),
         allowNull: false,
@@ -39,7 +35,7 @@ module.exports = (sequelize, Datatypes) => {
   );
   Club.associate = (db) => {
     db.Club.belongsTo(db.Admin);
-    db.Club.belongsTo(db.User);
+    db.Club.belongsToMany(db.User, { through: 'user_club', as: 'member' });
     db.Club.hasMany(db.Image);
   };
   return Club;
