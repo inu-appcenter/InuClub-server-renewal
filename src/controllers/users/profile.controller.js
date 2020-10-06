@@ -14,7 +14,7 @@ const ProfileController = {
       const arg = { studentId, password, newPassword, phone, major, name };
       const data = await ProfileService.modifyAccount(arg);
       if (data.ans === 'success') res.status(201).json({ success: true });
-      else res.status(201).json({ success: true });
+      else res.status(400).json({ success: false, message: data.ans });
     } catch (e) {
       next(e);
     }
