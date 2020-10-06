@@ -5,10 +5,10 @@ const {
   modifyVote,
   removeVote,
 } = require('../../../controllers/votes/votes.controller');
-
 const router = require('express').Router();
 
-function rootRouter() {
+function defaultRouter({ APIRouter }) {
+  APIRouter.use(router);
   /**
    * @description 투표 리스트 조회
    * @route GET /votes/
@@ -40,8 +40,6 @@ function rootRouter() {
    * @route DELETE /votes/:voteId
    */
   router.delete('/:voteId', removeVote);
-
-  return router;
 }
 
-module.exports = rootRouter;
+module.exports = defaultRouter;

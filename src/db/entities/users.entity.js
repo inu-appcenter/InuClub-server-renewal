@@ -15,7 +15,7 @@ module.exports = (sequelize, Datatypes) => {
     { charset: 'utf8', collate: 'utf8_general_ci' },
   );
   User.associate = (db) => {
-    db.User.hasMany(db.Club);
+    db.User.belongsToMany(db.Club, { through: 'user_club', as: 'myClub' });
     db.User.hasMany(db.Comment);
     db.User.belongsToMany(db.Vote, { through: 'user_voting', as: 'voted' });
   };

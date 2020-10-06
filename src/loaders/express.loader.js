@@ -6,14 +6,17 @@ const cors = require('cors');
 
 function loadExpressMiddleware({ app }) {
   console.log('loadExpressMiddleware start');
-
-  app.use(helmet());
-  app.use(morgan('dev'));
-  app.use(express.json());
-  app.use(express.urlencoded({ extended: true }));
-  app.use(hpp());
-  app.use(cors());
-
+  try {
+    app.use(helmet());
+    app.use(morgan('dev'));
+    app.use(express.json());
+    app.use(express.urlencoded({ extended: true }));
+    app.use(hpp());
+    app.use(cors());
+  } catch (e) {
+    console.error(e);
+    throw new Error('loadExpressMiddleware error');
+  }
   console.log('loadExpressMiddleware finish');
 }
 
