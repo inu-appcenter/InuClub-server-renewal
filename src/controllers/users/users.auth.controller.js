@@ -19,6 +19,7 @@ const UsersAuthController = {
       next(e);
     }
   },
+  
   userWithdrawal: async (req, res, next) => {
     try {
       // req.user -> req.headers.authorization에서 토큰 해독 후 담아둔 곳
