@@ -18,7 +18,11 @@ module.exports = (sequelize, Datatypes) => {
         type: Datatypes.DATE,
         allowNull: false,
       },
-      time: {
+      startTime: {
+        type: Datatypes.TIME,
+        allowNull: false,
+      },
+      endTime: {
         type: Datatypes.TIME,
         allowNull: false,
       },
@@ -27,6 +31,7 @@ module.exports = (sequelize, Datatypes) => {
   );
   Event.associate = (db) => {
     db.Event.belongsTo(db.Admin);
+    db.Event.belongsTo(db.Club);
   };
   return Event;
 };

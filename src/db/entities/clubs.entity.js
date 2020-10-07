@@ -23,8 +23,8 @@ module.exports = (sequelize, Datatypes) => {
         allowNull: false,
       },
       url: {
-        type: Datatypes.STRING(50),
-        allowNull: false,
+        type: Datatypes.STRING(100),
+        allowNull: true,
       },
       masterName: {
         type: Datatypes.STRING(5),
@@ -37,6 +37,7 @@ module.exports = (sequelize, Datatypes) => {
     db.Club.belongsTo(db.Admin);
     db.Club.belongsToMany(db.User, { through: 'user_club', as: 'member' });
     db.Club.hasMany(db.Image);
+    db.Club.hasMany(db.Event);
   };
   return Club;
 };
