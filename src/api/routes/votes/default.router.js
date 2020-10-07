@@ -4,16 +4,26 @@ const {
   addVote,
   modifyVote,
   removeVote,
+  getClosedVotes,
 } = require('../../../controllers/votes/votes.controller');
+const { isUserLogin } = require('../../middlewares/auth/jwt.auth');
 const router = require('express').Router();
 
 function defaultRouter({ APIRouter }) {
   APIRouter.use(router);
+  router.use(isUserLogin({ key: 'inu-auth' }));
+
   /**
    * @description 투표 리스트 조회
    * @route GET /votes/
    */
   router.get('/', getVotes);
+
+  /**
+   * @description 투표가 끝난 리스트 조회
+   * @route GET /votes/closed
+   */
+  router.get('/close', getClosedVotes);
 
   /**
    * @description 투표 조회(댓글 까지)

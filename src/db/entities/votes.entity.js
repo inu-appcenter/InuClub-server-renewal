@@ -11,12 +11,12 @@ module.exports = (sequelize, Datatypes) => {
         allowNull: false,
       },
       category: {
-        type: Datatypes.STRING(10),
+        type: Datatypes.INTEGER,
         allowNull: false,
       },
       openChatUrl: {
         type: Datatypes.STRING(255),
-        allowNull: false,
+        allowNull: true,
       },
       startDate: {
         type: Datatypes.DATE,
@@ -28,6 +28,7 @@ module.exports = (sequelize, Datatypes) => {
       },
       numOfPeople: {
         type: Datatypes.INTEGER,
+        defaultValue: 0,
         allowNull: false,
       },
     },
