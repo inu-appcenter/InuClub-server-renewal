@@ -1,7 +1,15 @@
+const VotesService = require('../../services/votes/votes.service');
+
 const VotesController = {
-  getVotes: (req, res, next) => {
-    res.send('get votes');
+  getVotes: async (req, res, next) => {
+    try {
+      const votes = await VotesService.progressVotes();
+      res.status(200).json({ success: true, votes });
+    } catch (e) {
+      next(e);
+    }
   },
+  getClosedVotes: (req, res, next) => {},
   getVote: (req, res, next) => {
     res.send('get vote');
   },
