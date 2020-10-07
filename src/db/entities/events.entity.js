@@ -27,6 +27,7 @@ module.exports = (sequelize, Datatypes) => {
   );
   Event.associate = (db) => {
     db.Event.belongsTo(db.Admin);
+    db.Event.belongsTo(db.Club);
   };
   return Event;
 };
