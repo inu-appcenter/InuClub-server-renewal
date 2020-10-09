@@ -7,7 +7,8 @@ const VotesService = {
   progressVotes: async () => {
     const nowDate = formatDate({ ISO: Date.now(), fm: '' });
     const votes = await Vote.findAll({
-      where: { [Sequelize.Op.lte]: new Date(nowDate) },
+      where: { 
+        endDate: {[Sequelize.Op.gte]: new Date(nowDate) }},
     });
     return votes;
   },
