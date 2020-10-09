@@ -1,6 +1,6 @@
 /**
  * @param {num} 카테고리 분류 숫자
- * @returns 스포츠 | 종교 | 문화 | 봉사 | 취미 | 전시 | 기타
+ * @returns 스포츠 | 종교 | 문화 | 봉사 | 취미/전시 | 교양/학습 | 기타
  */
 function getCategory({ num }) {
   switch (num) {
@@ -13,9 +13,9 @@ function getCategory({ num }) {
     case 4:
       return '봉사';
     case 5:
-      return '취미';
+      return '취미/전시';
     case 6:
-      return '전시';
+      return '교양/학습';
     default:
       return '기타';
   }
