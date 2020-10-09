@@ -23,7 +23,7 @@ const mmt = {
   /**
    * @description 상대적인 날짜 정보 담당
    */
-  relativeTime: () => {},
+  relativeTime: ({ ISO }) => moment(ISO).startOf('D').fromNow(),
 };
 
 module.exports = mmt;
