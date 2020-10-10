@@ -9,6 +9,7 @@ const VotesController = {
       next(e);
     }
   },
+
   getClosedVotes: async (req, res, next) => {
     try {
       const votes = await VotesService.progressVotes({progress: false});
@@ -17,6 +18,7 @@ const VotesController = {
       next(e);
     }
   },
+
   getVote: async (req, res, next) => {
     const {voteId} = req.params;
     try {
@@ -26,20 +28,37 @@ const VotesController = {
       next(e)
     }
   },
-  addVote: (req, res, next) => {
-    res.send('add vote');
+
+  addVote: async (req, res, next) => {
+    const body = req.body;
+    const {id} = req.user;
+    try {
+      await VotesService.createVote({body, userId: id});
+      res.status(201).json({ success: true });
+    } catch (e) {
+      next(e);
+    }
   },
+
   modifyVote: async (req, res, next) => {
     const {voteId} = req.params;
+    const body = req.body;
+    const {id} = req.user;
     try {
-      
+      const isUpdate = await VotesService.updateVote({body, voteId, userId: id});
+      if (isUpdate) res.status(200).json({ success: true });
+      else res.status(403).json({ success: true, message: '작성자가 아니거나 혹은 현재 투표를 수정할 수 없습니다.' });
     } catch (e) {
       next(e)
     }
   },
   removeVote: async (req, res, next) => {
     const {voteId} = req.params;
+    const {id} = req.user;
     try {
+      const isDestroy = await VotesService.destroyVote({voteId, userId: id});
+      if (isDestroy) res.status(200).json({success: true});
+      else res.status(403).json({success: false, message: '작성자가 아니거나 혹은 현재 투표를 삭제할 수 없습니다.'})
     } catch (e) {
       next(e)
     }
