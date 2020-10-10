@@ -3,24 +3,46 @@ const VotesService = require('../../services/votes/votes.service');
 const VotesController = {
   getVotes: async (req, res, next) => {
     try {
-      const votes = await VotesService.progressVotes();
+      const votes = await VotesService.progressVotes({progress: true});
       res.status(200).json({ success: true, votes });
     } catch (e) {
       next(e);
     }
   },
-  getClosedVotes: (req, res, next) => {},
-  getVote: (req, res, next) => {
-    res.send('get vote');
+  getClosedVotes: async (req, res, next) => {
+    try {
+      const votes = await VotesService.progressVotes({progress: false});
+      res.status(200).json({ success: true, votes });
+    } catch (e) {
+      next(e);
+    }
+  },
+  getVote: async (req, res, next) => {
+    const {voteId} = req.params;
+    try {
+      
+    } catch (e) {
+      next(e)
+    }
   },
   addVote: (req, res, next) => {
     res.send('add vote');
   },
-  modifyVote: (req, res, next) => {
-    res.send('modify vote');
+  modifyVote: async (req, res, next) => {
+    const {voteId} = req.params;
+    try {
+      
+    } catch (e) {
+      next(e)
+    }
   },
-  removeVote: (req, res, next) => {
-    res.send('remove vote');
+  removeVote: async (req, res, next) => {
+    const {voteId} = req.params;
+    try {
+      
+    } catch (e) {
+      next(e)
+    }
   },
 };
 
