@@ -1,7 +1,8 @@
-const { validationResult, param, query, body } = require('express-validator');
+const { validationResult, param, body } = require('express-validator');
 
+// 422 Unprocessable Entity
 const VotesValidator = {
-  getVoteValidator: async (req,res,next) => {
+  voteIdValidator: async (req,res,next) => {
       await param('voteId').exists().isNumeric().run(req);
       const errors = validationResult(req);
       if (!errors.isEmpty())

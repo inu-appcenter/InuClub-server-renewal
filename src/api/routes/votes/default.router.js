@@ -7,7 +7,7 @@ const {
   getClosedVotes,
 } = require('../../../controllers/votes/votes.controller');
 const { isUserLogin } = require('../../middlewares/auth/jwt.auth');
-const { addVoteValidator, getVoteValidator } = require('../../middlewares/validators/votes.validator');
+const { addVoteValidator, voteIdValidator } = require('../../middlewares/validators/votes.validator');
 const router = require('express').Router();
 
 function defaultRouter({ APIRouter }) {
@@ -30,7 +30,7 @@ function defaultRouter({ APIRouter }) {
    * @description 투표 조회(댓글 까지)
    * @route GET /votes/:voteId
    */
-  router.get('/:voteId', getVoteValidator, getVote);
+  router.get('/:voteId', voteIdValidator, getVote);
 
   /**
    * @description 투표 생성
@@ -44,13 +44,13 @@ function defaultRouter({ APIRouter }) {
    * @route PUT /votes/:voteId
    * @request @body {title, content, openChat, numOfPeople, startDate, endDate, category}
    */
-  router.put('/:voteId',getVoteValidator, addVoteValidator, modifyVote);
+  router.put('/:voteId',voteIdValidator, addVoteValidator, modifyVote);
 
   /**
    * @description 투표 삭제
    * @route DELETE /votes/:voteId
    */
-  router.delete('/:voteId',getVoteValidator, removeVote);
+  router.delete('/:voteId',voteIdValidator, removeVote);
 }
 
 module.exports = defaultRouter;
