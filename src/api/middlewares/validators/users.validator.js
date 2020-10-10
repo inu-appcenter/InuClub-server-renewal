@@ -1,5 +1,6 @@
-const { validationResult, param, query, body } = require('express-validator');
+const { validationResult, body } = require('express-validator');
 
+// 422 Unprocessable Entity
 const UsersValidator = {
   userLoginValidator: async (req, res, next) => {
     await Promise.all([

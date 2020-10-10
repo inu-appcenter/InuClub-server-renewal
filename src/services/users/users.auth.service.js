@@ -17,14 +17,15 @@ const UsersAuthService = {
   },
 
   /**
-   * @returns void
+   * @returns boolean
    */
   signup: async ({ studentId, token }) => {
     const user = await User.findOne({ where: { studentId } });
     if (!user) {
       const decodedUser = jwt.verify({ token, key: 'inu-auth' });
       await User.create({ studentId, name: decodedUser.name });
-    }
+      return true;
+    }else return false;
   },
 
   /**
