@@ -20,7 +20,8 @@ const VotesController = {
   getVote: async (req, res, next) => {
     const {voteId} = req.params;
     try {
-      
+      const vote = await VotesService.getVote({voteId});
+      res.status(200).json({ success: true, vote });
     } catch (e) {
       next(e)
     }
@@ -39,7 +40,6 @@ const VotesController = {
   removeVote: async (req, res, next) => {
     const {voteId} = req.params;
     try {
-      
     } catch (e) {
       next(e)
     }
