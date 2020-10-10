@@ -13,7 +13,9 @@ const authMiddleware = {
     if (!decoded)
       return res.status(401).json({ success: false, message: 'invalid token' });
 
-    req.user = { studentId: decoded.id, ...decoded };
+    if (key === 'inu-auth') req.user = { studentId: decoded.id, ...decoded };
+    // 관리자 정보
+    if (key === 'inu-clubs') req.admin = {  };
     next();
   },
 };
