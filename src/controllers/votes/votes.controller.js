@@ -45,8 +45,8 @@ const VotesController = {
     const body = req.body;
     const {id} = req.user;
     try {
-      const isUpdate = await VotesService.updateVote({body, voteId, userId: id});
-      if (isUpdate) res.status(200).json({ success: true });
+      const isUpdated = await VotesService.updateVote({body, voteId, userId: id});
+      if (isUpdated) res.status(200).json({ success: true });
       else res.status(403).json({ success: true, message: '작성자가 아니거나 혹은 현재 투표를 수정할 수 없습니다.' });
     } catch (e) {
       next(e)
@@ -56,8 +56,8 @@ const VotesController = {
     const {voteId} = req.params;
     const {id} = req.user;
     try {
-      const isDestroy = await VotesService.destroyVote({voteId, userId: id});
-      if (isDestroy) res.status(200).json({success: true});
+      const isDestroyed = await VotesService.destroyVote({voteId, userId: id});
+      if (isDestroyed) res.status(200).json({success: true});
       else res.status(403).json({success: false, message: '작성자가 아니거나 혹은 현재 투표를 삭제할 수 없습니다.'})
     } catch (e) {
       next(e)

@@ -77,7 +77,7 @@ const VotesService = {
   /**
    * 투표 생성하기
    * @param {{body}} req.body 클라이언트에서 받은 데이터
-   * @param {{userId}} User.id 유저 데이터베이스 pk
+   * @param {{userId}} User.id 유저 pk
    * @returns Promise<void>
    */
   createVote: async ({body, userId}) => {
@@ -87,28 +87,28 @@ const VotesService = {
   /**
    * 투표 수정하기
    * @param {{body}} req.body 클라이언트에서 받은 데이터
-   * @param {{voteId}} Vote.id 투표 데이터베이스 pk
-   * @param {{userId}} User.id 유저 데이터베이스 pk
+   * @param {{voteId}} Vote.id 투표 pk
+   * @param {{userId}} User.id 유저 pk
    * @returns Promise<boolean>
    */
   updateVote: async ({body, voteId, userId}) => {
     // update는 return 타입이 Promise<number[]>
     const result = await Vote.update({...body}, {where: {id: voteId, UserId: userId}})
     if (result[0]) return true;
-    else return false;
+    return false;
   },
 
   /**
    * 투표 삭제하기
-   * @param {{voteId}} Vote.id 투표 데이터베이스 pk
-   * @param {{userId}} User.id 유저 데이터베이스 pk
+   * @param {{voteId}} Vote.id 투표  pk
+   * @param {{userId}} User.id 유저  pk
    * @returns Promise<boolean>
    */
   destroyVote: async ({voteId, userId}) => { 
     // destroy는 return 타입이 Promise<number>
     const result = await Vote.destroy({where: {id: voteId, UserId: userId}})
     if (result) return true;
-    else return false;
+    return false;
   }
 };
 
