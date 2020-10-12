@@ -9,7 +9,7 @@ const authMiddleware = {
   isUserLogin: ({ key }) => async (req, res, next) => {
     const token = jwt.getTokenFromHeader({ req });
     if (!token)
-      return res.status(401).json({ success: false, message: 'no token' });
+      return res.status(401).json({ success: false, message: 'no bearer' });
 
     const decoded = jwt.verify({ token, key });
     if (!decoded)

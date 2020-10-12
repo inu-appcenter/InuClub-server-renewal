@@ -4,8 +4,8 @@ const { validationResult, body } = require('express-validator');
 const UsersValidator = {
   userLoginValidator: async (req, res, next) => {
     await Promise.all([
-      body('studentId').exists().isLength({ max: 9, min: 9 }).run(req),
-      body('password').exists().run(req),
+      body('studentId').exists().withMessage("studentId가 존재하지 않아요").isLength({ max: 9, min: 9 }).run(req),
+      body('password').exists().withMessage("password가 존재하지 않아요").run(req),
     ]);
     const errors = validationResult(req);
     if (!errors.isEmpty())
@@ -15,11 +15,11 @@ const UsersValidator = {
 
   userSignupValidator: async (req, res, next) => {
     await Promise.all([
-      body('studentId').exists().isLength({ max: 9, min: 9 }).run(req),
-      body('password').exists().run(req),
-      body('major').exists().run(req),
-      body('phone').exists().run(req),
-      body('name').exists().run(req),
+      body('studentId').exists().withMessage("studentId가 존재하지 않아요").isLength({ max: 9, min: 9 }).run(req),
+      body('password').exists().withMessage("password가 존재하지 않아요").run(req),
+      body('major').exists().withMessage("major가 존재하지 않아요").run(req),
+      body('phone').exists().withMessage("phone가 존재하지 않아요").run(req),
+      body('name').exists().withMessage("name가 존재하지 않아요").run(req),
     ]);
     const errors = validationResult(req);
     if (!errors.isEmpty())
