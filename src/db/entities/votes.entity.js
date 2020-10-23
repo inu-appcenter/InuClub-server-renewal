@@ -3,7 +3,7 @@ module.exports = (sequelize, Datatypes) => {
     'Vote',
     {
       title: {
-        type: Datatypes.STRING(20),
+        type: Datatypes.STRING(100),
         allowNull: false,
       },
       content: {
@@ -11,12 +11,12 @@ module.exports = (sequelize, Datatypes) => {
         allowNull: false,
       },
       category: {
-        type: Datatypes.STRING(10),
+        type: Datatypes.INTEGER,
         allowNull: false,
       },
       openChatUrl: {
         type: Datatypes.STRING(255),
-        allowNull: false,
+        allowNull: true,
       },
       startDate: {
         type: Datatypes.DATE,
@@ -28,6 +28,7 @@ module.exports = (sequelize, Datatypes) => {
       },
       numOfPeople: {
         type: Datatypes.INTEGER,
+        defaultValue: 0,
         allowNull: false,
       },
     },
@@ -35,6 +36,7 @@ module.exports = (sequelize, Datatypes) => {
   );
   Vote.associate = (db) => {
     db.Vote.hasMany(db.Comment);
+    db.Vote.belongsTo(db.User);
     db.Vote.belongsToMany(db.User, { through: 'user_voting', as: 'voter' });
   };
   return Vote;
