@@ -15,7 +15,7 @@ const UsersClubsService = {
       });
       if (myClubs.length > 0) {
         const arr = JSON.parse(JSON.stringify(myClubs));
-        return arr.map((club) => {
+        return arr.map(club => {
           delete club.user_club;
           return club;
         });
@@ -29,7 +29,7 @@ const UsersClubsService = {
    */
   getClubsEvents: async ({ clubIds }) => {
     const events = await Promise.all(
-      clubIds.map((clubId) =>
+      clubIds.map(clubId =>
         Event.findAll({
           where: { ClubId: clubId },
           attributes: { exclude: ['createdAt', 'updatedAt'] },
@@ -38,8 +38,8 @@ const UsersClubsService = {
     );
     const myEvents = events.reduce((acc, event) => [...acc, ...event]);
     return myEvents
-      .map((v) => v.toJSON())
-      .map((event) => {
+      .map(v => v.toJSON())
+      .map(event => {
         const YMD = formatDate({ ISO: event.date, fm: 'YYYY-MM-DD' });
         event.date = formatDate({ ISO: YMD, fm: 'MMM Do' });
         event.startTime = formatDate({
