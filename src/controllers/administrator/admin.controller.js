@@ -1,24 +1,22 @@
-const AdminService = require('../../services/administrator');
+const AdminService = require('../../services/administrator/admins.auth.service');
 
 const AdminController = {
   adminLogin: async (req, res, next) => {
-    // const { email, password } = req.body;
-    // try {
-    //   const { token } = await AdminService.login(email, password);
-    //   res.status(201).json({ success: true, message: '로그인 성공', token });
-    // } catch (error) {
-    //   next(error);
-    // }
-    res.send('admin login');
+    res.send('admin Login');
+    
+  },
+  adminAuthenticate: async (req, res, next) => {
+    try{
+      const result = await AdminService.authenticate(req.query)
+      console.log(result)
+      if(result) res.status(200).json({success:true})
+      else res.status(204).json({success:true,message:'invalid email'})
+    }catch(e){
+      next(e)
+    }  
   },
   adminSignup: async (req, res, next) => {
-    // const { email, name, password, clubId } = req.body;
-    // try {
-    //   await AdminService.signup(email, name, password, clubId);
-    //   res.status(201).json({ success: true, message: '가입 성공' });
-    // } catch (error) {
-    //   next(error);
-    // }
+    const data = await AdminService.
     res.send('admin signup');
   },
 

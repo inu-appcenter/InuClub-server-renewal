@@ -30,7 +30,17 @@ const jwt = {
     return jsonwebtoken.verify(token, secretKey);
   },
 
-  sign: () => {},
+  sign: ({adminId,key}) => {
+    let secretKey ;
+    if(key=='inu-clubs'){
+      secretKey = process.env.INU_CLUBS_KEY || '';
+      const token = jwt.sign({
+        adminId,
+      },secretKey)
+    return token
+    }
+    return null
+  },
 };
 
 module.exports = jwt;
