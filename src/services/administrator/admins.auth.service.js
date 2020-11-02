@@ -18,7 +18,7 @@ const AdminsAuthService = {
       attributes: { exclude: ['createdAt', 'updatedAt','id','adminId'] }})
     if(!admin){return null}
     else{
-      console.log(admin)
+      return false
     }
    
     return data;
@@ -28,8 +28,8 @@ const AdminsAuthService = {
    */
   signup: async ({ adminId,password }) => {
     const Admin = await Admin.findOne({ where: { adminId } });
+    
     if (!Admin) {
-      
       await Admin.create({ AdminId, password });
       return true;
     }else return false;

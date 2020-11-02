@@ -2,7 +2,7 @@ const {
   adminLogin,
   adminSignup,
   adminAuthenticate,
-} = require('../../../controllers/administrator/admin.controller');
+} = require('../../../controllers/administrator/admin.auth.controller');
 const router = require('express').Router();
 
 function adminAuthRouter({ APIRouter }) {
@@ -22,10 +22,10 @@ function adminAuthRouter({ APIRouter }) {
 
   /**
    * @description 관리자 회원가입
-   * @route POST /admin/auth/signup
-   * @request @body {email, name, phone, password}
+   * @route GET /admin/auth/signup
+   * @request @queryString {adminId, password}
    */
-  router.post('/signup', adminSignup);
+  router.get('/signup', adminSignup);
 }
 
 module.exports = adminAuthRouter;

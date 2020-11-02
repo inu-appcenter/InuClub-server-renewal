@@ -18,7 +18,7 @@ verify: ({adminId,hashPassword}) =>{
     from: "Do not Reply <inuclub.appcenter@gmail.com>",
     to: adminId+"@inu.ac.kr",
     subject: "INU App Center 계정 인증메일입니다.",
-    html:"<a href='http://localhost:9000/verify/success?email="+adminId+"&password="+hashPassword+"'>링크를 클릭하십시오</a>"
+    html:"<a href='http://localhost:9000/admin/auth/signup?adminId="+adminId+"&password="+hashPassword+"'>링크를 클릭하십시오</a>"
   };
   return new Promise(function(resolve, reject) {
   smtpTransport.sendMail(mailOptions,function (error, info) {
