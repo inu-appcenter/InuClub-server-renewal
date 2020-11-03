@@ -1,4 +1,6 @@
+const { User } = require('../../db/entities')
 const { Admin } = require('../../db/entities');
+
 const mailer = require('../../utils/nodemailer.util');
 // argon 어디에 위치할지 다시 생각
 const argon2 = require('argon2');
@@ -27,10 +29,10 @@ const AdminsAuthService = {
    * @returns boolean
    */
   signup: async ({ adminId,password }) => {
-    const Admin = await Admin.findOne({ where: { adminId } });
+    const admin = await Admin.findOne({ where: { adminId } });
     
-    if (!Admin) {
-      await Admin.create({ AdminId, password });
+    if (!admin) {
+      await Admin.create({ adminId, password });
       return true;
     }else return false;
   },
