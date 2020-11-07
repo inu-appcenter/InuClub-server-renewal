@@ -20,6 +20,7 @@ const ProfileService = {
       major,
       name,
     };
+    
     const { data } = await inuAuth.post('/changeInfo', requestBody);
     return data;
   },

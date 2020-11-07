@@ -7,6 +7,7 @@ const dbConfig = {
     database: process.env.DB_DATABASE,
     host: process.env.DB_HOST,
     dialect: 'mysql',
+    timezone: '+9:00',
   },
   test: {
     username: 'root',
