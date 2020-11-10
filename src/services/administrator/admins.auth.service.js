@@ -1,13 +1,14 @@
 const { User } = require('../../db/entities');
 const { Admin } = require('../../db/entities');
 const jwt = require('../../utils/jwt.util');
-const mailer = require('../../utils/nodemailer.util');
+const mailerAuth = require('../../utils/nodemailer.auth.util');
+const mailerModifyPassword = require('../../utils/nodemailer.modifyPassword.util');
 // argon 어디에 위치할지 다시 생각
 const argon2 = require('argon2');
 
 const AdminsAuthService = {
   /**
-   * @returns Promise<true/false>
+   * @returns Promise<1/0>
    */
   login: async ({ adminId, password }) => {
     try {
@@ -39,20 +40,20 @@ const AdminsAuthService = {
   },
 
   /**
-   * @returns Promise<true/false>
+   * @returns Promise<1/0>
    */
 
   authenticate: async ({ adminId, password }) => {
     const admin = await Admin.findOne({ where: { adminId } });
     if (!admin) {
       const hashPassword = await argon2.hash(password);
-      const data = await mailer.verify({ adminId, hashPassword });
+      const data = await mailerAuth.verify({ adminId, hashPassword });
 
       return data;
     } else return false;
   },
   /**
-   * @returns Promise<true/false>
+   * @returns Promise<1/0>
    */
   createToken: async ({ adminId }) => {
     const admin = await Admin.findOne({ where: { adminId } });
@@ -68,6 +69,23 @@ const AdminsAuthService = {
   withdrawal: async ({ adminId }) => {
     const result = await Admin.destroy({ where: { adminId } });
     return result;
+  },
+  /**
+   * @returns Promise<1 | 0>
+   */
+  temporaryPassword: async ({ adminId }) => {
+    const admin = await Admin.findOne({ where: { adminId } });
+    if (admin) {
+      const randomString = await Math.random().toString(36).slice(2);
+      const hashPassword = await argon2.hash(randomString);
+      const changedUserData = await Admin.update(
+        { password: hashPassword },
+        { where: { adminId } },
+      );
+      const data = await mailerModifyPassword.verify({ adminId, randomString });
+
+      return data;
+    } else return false;
   },
 };
 

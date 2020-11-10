@@ -47,6 +47,15 @@ const AdminAuthController = {
       next(e);
     }
   },
+  adminTemporaryPassword: async (req, res, next) => {
+    try {
+      const result = await AdminAuthService.temporaryPassword(req.query);
+      if (result) res.status(200).json({ success: true });
+      else res.status(204).json({ success: true, message: 'invalid email' });
+    } catch (e) {
+      next(e);
+    }
+  },
 };
 
 module.exports = AdminAuthController;

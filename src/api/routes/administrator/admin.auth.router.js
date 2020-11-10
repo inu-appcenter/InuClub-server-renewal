@@ -2,10 +2,15 @@ const {
   adminLogin,
   adminSignup,
   adminAuthenticate,
-  adminWithdrawal
-  } = require('../../../controllers/administrator/admin.auth.controller');
+  adminWithdrawal,
+  adminTemporaryPassword,
+} = require('../../../controllers/administrator/admin.auth.controller');
 const { isUserLogin } = require('../../middlewares/auth/jwt.auth');
-const {adminValidator, adminLoginValidator} = require('../../middlewares/validators/admins.validator')
+const {
+  adminValidator,
+  adminLoginValidator,
+  adminIdValidator,
+} = require('../../middlewares/validators/admins.validator');
 const router = require('express').Router();
 
 function adminAuthRouter({ APIRouter }) {
@@ -15,29 +20,33 @@ function adminAuthRouter({ APIRouter }) {
    * @route GET /admin/auth/authenticate
    * @request @queryString {adminId, password}
    */
-  router.get('/authenticate',adminValidator ,adminAuthenticate);
+  router.get('/authenticate', adminValidator, adminAuthenticate);
   /**
    * @description 관리자 회원가입
    * @route GET /admin/auth/signup
    * @request @queryString {adminId, password}
    */
-  router.get('/signup',adminValidator ,adminSignup);
+  router.get('/signup', adminValidator, adminSignup);
   /**
    * @description 관리자 로그인
    * @route POST /admin/auth/login
    * @request @body {adminId, password}
    */
-  router.post('/login',adminLoginValidator,adminLogin);
+  router.post('/login', adminLoginValidator, adminLogin);
   /**
    * @description 관리자 탈퇴
    * @routes DELETE /admin/auth/withdrawal
    */
   router.delete(
-    'withdrawal',
-    isUserLogin({key:'inu-clubs'}),
-    adminWithdrawal
+    '/withdrawal',
+    isUserLogin({ key: 'inu-clubs' }),
+    adminWithdrawal,
   );
-
+  /**
+   * @description 관리자 비밀번호 임시발급
+   * @routes GET /admin/auth/temporaryPassword
+   */
+  router.get('/temporaryPassword', adminIdValidator, adminTemporaryPassword);
 }
 
 module.exports = adminAuthRouter;

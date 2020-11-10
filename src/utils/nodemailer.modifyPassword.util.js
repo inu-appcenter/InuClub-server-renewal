@@ -1,9 +1,8 @@
 const nodemailer = require('nodemailer');
 const smtpTransporter = require('nodemailer-smtp-transport');
 
-const mailer = {
-  verify: ({ adminId, hashPassword }) => {
-    let result;
+const mailerModifyPassword = {
+  verify: ({ adminId, randomString }) => {
     var smtpTransport = nodemailer.createTransport(
       smtpTransporter({
         service: 'gmail',
@@ -18,12 +17,7 @@ const mailer = {
       from: 'Do not Reply <inuclub.appcenter@gmail.com>',
       to: adminId + '@inu.ac.kr',
       subject: 'INU App Center 계정 인증메일입니다.',
-      html:
-        "<a href='http://localhost:9000/admin/auth/signup?adminId=" +
-        adminId +
-        '&password=' +
-        hashPassword +
-        "'>링크를 클릭하십시오</a>",
+      text: '임시 비밀번호 : ' + randomString,
     };
     return new Promise(function (resolve, reject) {
       smtpTransport.sendMail(mailOptions, function (error, info) {
@@ -42,4 +36,4 @@ const mailer = {
       });
   },
 };
-module.exports = mailer;
+module.exports = mailerModifyPassword;
