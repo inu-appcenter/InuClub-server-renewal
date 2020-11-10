@@ -2,8 +2,10 @@ const {
   adminLogin,
   adminSignup,
   adminAuthenticate,
-} = require('../../../controllers/administrator/admin.auth.controller');
-const {adminValidator} = require('../../middlewares/validators/admins.validator')
+  adminWithdrawal
+  } = require('../../../controllers/administrator/admin.auth.controller');
+const { isUserLogin } = require('../../middlewares/auth/jwt.auth');
+const {adminValidator, adminLoginValidator} = require('../../middlewares/validators/admins.validator')
 const router = require('express').Router();
 
 function adminAuthRouter({ APIRouter }) {
@@ -23,9 +25,19 @@ function adminAuthRouter({ APIRouter }) {
   /**
    * @description 관리자 로그인
    * @route POST /admin/auth/login
-   * @request @body {email, password}
+   * @request @body {adminId, password}
    */
-  router.post('/login', adminLogin);
+  router.post('/login',adminLoginValidator,adminLogin);
+  /**
+   * @description 관리자 탈퇴
+   * @routes DELETE /admin/auth/withdrawal
+   */
+  router.delete(
+    'withdrawal',
+    isUserLogin({key:'inu-clubs'}),
+    adminWithdrawal
+  );
+
 }
 
 module.exports = adminAuthRouter;

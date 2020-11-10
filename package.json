@@ -24,10 +24,7 @@
     "morgan": "^1.10.0",
     "mysql2": "^2.2.5",
     "nodemailer-smtp-transport": "^2.7.4",
+    "prettier": "^2.1.2",
     "sequelize": "^6.3.5"
-  },
-  "devDependencies": {
-    "nodemon": "^2.0.4",
-    "sequelize-cli": "^6.2.0"
   }
 }

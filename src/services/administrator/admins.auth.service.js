@@ -1,56 +1,65 @@
-const { User } = require('../../db/entities')
+const { User } = require('../../db/entities');
 const { Admin } = require('../../db/entities');
-
+const jwt = require('../../utils/jwt.util');
 const mailer = require('../../utils/nodemailer.util');
 // argon 어디에 위치할지 다시 생각
 const argon2 = require('argon2');
 
-
-
-/**
- * inu 붙은 로직은 통합 로그인 서버와 연관된 로직
- * 없는 로직은 우리 서비스와 연관된 로직
- */
 const AdminsAuthService = {
   /**
-   * @returns Promise<토큰이 담긴 데이터 객체>
+   * @returns Promise<true/false>
    */
   login: async ({ adminId, password }) => {
-    const admin = await Admin.findOne({ where : {adminId:adminId},
-      attributes: { exclude: ['createdAt', 'updatedAt','id','adminId'] }})
-    if(!admin){return null}
-    else{
-      return false
+    try {
+      const hashPasswd = await Admin.findOne({
+        attributes: ['password'],
+        where: { adminId: adminId },
+      });
+      if (!hashPasswd) return false;
+      else {
+        const pw = hashPasswd.password;
+        const hashPassword = pw.replace(/\s/g, '+');
+        if (await argon2.verify(hashPassword, password)) return true;
+        else return false;
+      }
+    } catch (error) {
+      throw error;
     }
-   
-    return data;
   },
   /**
    * @returns boolean
    */
-  signup: async ({ adminId,password }) => {
+  signup: async ({ adminId, password }) => {
     const admin = await Admin.findOne({ where: { adminId } });
-    
+
     if (!admin) {
       await Admin.create({ adminId, password });
       return true;
-    }else return false;
+    } else return false;
   },
 
   /**
-   * @returns Promise<true/null>
+   * @returns Promise<true/false>
    */
-  
-  authenticate: async ({ adminId, password}) => {
-    const admin = await Admin.findOne({ where : {adminId}})
-    if(!admin){
-        const hashPassword = await argon2.hash(password)
-        const data= await mailer.verify({adminId,hashPassword})
-        console.log(data)
-        return data
-        
-    }
-    else return false  
+
+  authenticate: async ({ adminId, password }) => {
+    const admin = await Admin.findOne({ where: { adminId } });
+    if (!admin) {
+      const hashPassword = await argon2.hash(password);
+      const data = await mailer.verify({ adminId, hashPassword });
+
+      return data;
+    } else return false;
+  },
+  /**
+   * @returns Promise<true/false>
+   */
+  createToken: async ({ adminId }) => {
+    const admin = await Admin.findOne({ where: { adminId } });
+    if (admin) {
+      const result = jwt.sign(adminId);
+      return result;
+    } else return false;
   },
 
   /**

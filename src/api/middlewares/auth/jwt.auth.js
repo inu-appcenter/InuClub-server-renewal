@@ -1,5 +1,5 @@
 const { User } = require('../../../db/entities');
-const { Admin } = require('../../../db/entities')
+const { Admin } = require('../../../db/entities');
 const jwt = require('../../../utils/jwt.util');
 
 const authMiddleware = {
@@ -18,19 +18,19 @@ const authMiddleware = {
 
     if (key === 'inu-auth') {
       try {
-        const user = await User.findOne({where: {studentId: decoded.id}})
+        const user = await User.findOne({ where: { studentId: decoded.id } });
         req.user = { ...decoded, ...user.toJSON() };
       } catch (e) {
-        next(e)
+        next(e);
       }
     }
     // 관리자 정보
     if (key === 'inu-clubs') {
       try {
-        const admin = await Admin.findOne({where: {studentId: decoded.id}})
+        const admin = await Admin.findOne({ where: { studentId: decoded.id } });
         req.admin = { ...decoded, ...admin.toJSON() };
       } catch (e) {
-        next(e)
+        next(e);
       }
     }
     next();
