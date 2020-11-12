@@ -56,6 +56,22 @@ const AdminAuthController = {
       next(e);
     }
   },
+  adminChangePassword: async (req, res, next) => {
+    try {
+      const adminId = req.admin.adminId;
+      const { password, newPassword } = req.body;
+
+      const result = await AdminAuthService.changePassword({
+        password,
+        newPassword,
+        adminId,
+      });
+      if (result) res.status(200).json({ success: true });
+      else res.status(204);
+    } catch (e) {
+      next(e);
+    }
+  },
 };
 
 module.exports = AdminAuthController;

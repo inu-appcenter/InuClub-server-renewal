@@ -58,7 +58,8 @@ const AdminsAuthService = {
   createToken: async ({ adminId }) => {
     const admin = await Admin.findOne({ where: { adminId } });
     if (admin) {
-      const result = jwt.sign(adminId);
+      const result = jwt.sign({ adminId });
+      console.log('result:', result);
       return result;
     } else return false;
   },
@@ -85,6 +86,21 @@ const AdminsAuthService = {
       const data = await mailerModifyPassword.verify({ adminId, randomString });
 
       return data;
+    } else return false;
+  },
+  changePassword: async ({ password, newPassword, adminId }) => {
+    const adminPassword = await Admin.findOne({
+      attributes: ['password'],
+      where: { adminId },
+    });
+
+    if (await argon2.verify(adminPassword.password, password)) {
+      const nPassword = await argon2.hash(newPassword);
+      const result = await Admin.update(
+        { password: nPassword },
+        { where: { adminId } },
+      );
+      return result;
     } else return false;
   },
 };

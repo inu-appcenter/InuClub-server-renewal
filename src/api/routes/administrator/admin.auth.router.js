@@ -4,12 +4,14 @@ const {
   adminAuthenticate,
   adminWithdrawal,
   adminTemporaryPassword,
+  adminChangePassword,
 } = require('../../../controllers/administrator/admin.auth.controller');
 const { isUserLogin } = require('../../middlewares/auth/jwt.auth');
 const {
   adminValidator,
   adminLoginValidator,
   adminIdValidator,
+  adminPasswordValidator,
 } = require('../../middlewares/validators/admins.validator');
 const router = require('express').Router();
 
@@ -47,6 +49,16 @@ function adminAuthRouter({ APIRouter }) {
    * @routes GET /admin/auth/temporaryPassword
    */
   router.get('/temporaryPassword', adminIdValidator, adminTemporaryPassword);
+  /**
+   * @description 관리자 비밀번호 변경
+   * @routes POST /admin/auth/changePassword
+   */
+  router.post(
+    '/changePassword',
+    isUserLogin({ key: 'inu-clubs' }),
+    adminPasswordValidator,
+    adminChangePassword,
+  );
 }
 
 module.exports = adminAuthRouter;

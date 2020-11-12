@@ -27,6 +27,7 @@ const jwt = {
         secretKey = process.env.INU_CLUBS_KEY || '';
         break;
     }
+
     return jsonwebtoken.verify(token, secretKey);
   },
 
@@ -34,11 +35,11 @@ const jwt = {
     let secretKey = process.env.INU_CLUBS_KEY || '';
     const token = jsonwebtoken.sign(
       {
-        adminId,
+        adminId: adminId,
       },
       secretKey,
     );
-    console.log(token);
+
     return token;
   },
 };

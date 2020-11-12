@@ -9,6 +9,7 @@ const authMiddleware = {
    */
   isUserLogin: ({ key }) => async (req, res, next) => {
     const token = jwt.getTokenFromHeader({ req });
+
     if (!token)
       return res.status(401).json({ success: false, message: 'no bearer' });
 
@@ -23,11 +24,11 @@ const authMiddleware = {
       } catch (e) {
         next(e);
       }
-    }
-    // 관리자 정보
-    if (key === 'inu-clubs') {
+    } else if (key === 'inu-clubs') {
       try {
-        const admin = await Admin.findOne({ where: { studentId: decoded.id } });
+        const admin = await Admin.findOne({
+          where: { adminId: decoded.adminId },
+        });
         req.admin = { ...decoded, ...admin.toJSON() };
       } catch (e) {
         next(e);
