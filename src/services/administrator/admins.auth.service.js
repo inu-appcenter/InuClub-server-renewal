@@ -93,15 +93,16 @@ const AdminsAuthService = {
       attributes: ['password'],
       where: { adminId },
     });
-
-    if (await argon2.verify(adminPassword.password, password)) {
+    if (!(await argon2.verify(adminPassword.password, password))) {
+      return false;
+    } else {
       const nPassword = await argon2.hash(newPassword);
       const result = await Admin.update(
         { password: nPassword },
         { where: { adminId } },
       );
       return result;
-    } else return false;
+    }
   },
 };
 

@@ -66,8 +66,11 @@ const AdminAuthController = {
         newPassword,
         adminId,
       });
+
       if (result) res.status(200).json({ success: true });
-      else res.status(204);
+      else {
+        res.status(204).json({ success: false, message: 'invalid password' });
+      }
     } catch (e) {
       next(e);
     }

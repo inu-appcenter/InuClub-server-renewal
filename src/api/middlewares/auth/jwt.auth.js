@@ -34,6 +34,7 @@ const authMiddleware = {
         next(e);
       }
     }
+
     next();
   },
 };
