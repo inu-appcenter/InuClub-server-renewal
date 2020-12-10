@@ -8,7 +8,7 @@ const argon2 = require('argon2');
 
 const AdminsAuthService = {
   /**
-   * @returns Promise<1/0>
+   * @returns Promise<1|0>
    */
   login: async ({ adminId, password }) => {
     try {
@@ -40,7 +40,7 @@ const AdminsAuthService = {
   },
 
   /**
-   * @returns Promise<1/0>
+   * @returns Promise<1|0>
    */
 
   authenticate: async ({ adminId, password }) => {
@@ -53,7 +53,7 @@ const AdminsAuthService = {
     } else return false;
   },
   /**
-   * @returns Promise<1/0>
+   * @returns Promise<1|0>
    */
   createToken: async ({ adminId }) => {
     const admin = await Admin.findOne({ where: { adminId } });
@@ -65,14 +65,14 @@ const AdminsAuthService = {
   },
 
   /**
-   * @returns Promise<1 | 0>
+   * @returns Promise<1|0>
    */
   withdrawal: async ({ adminId }) => {
     const result = await Admin.destroy({ where: { adminId } });
     return result;
   },
   /**
-   * @returns Promise<1 | 0>
+   * @returns Promise<1|0>
    */
   temporaryPassword: async ({ adminId }) => {
     const admin = await Admin.findOne({ where: { adminId } });
