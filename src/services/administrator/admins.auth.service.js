@@ -2,7 +2,7 @@ const { User } = require('../../db/entities');
 const { Admin } = require('../../db/entities');
 const jwt = require('../../utils/jwt.util');
 const mailerAuth = require('../../utils/nodemailer.auth.util');
-const mailerModifyPassword = require('../../utils/nodemailer.modifyPassword.util');
+
 // argon 어디에 위치할지 다시 생각
 const argon2 = require('argon2');
 
@@ -83,7 +83,7 @@ const AdminsAuthService = {
         { password: hashPassword },
         { where: { adminId } },
       );
-      const data = await mailerModifyPassword.verify({ adminId, randomString });
+      const data = await mailerAuth.modify({ adminId, randomString });
 
       return data;
     } else return false;
