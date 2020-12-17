@@ -1,4 +1,3 @@
-const { User } = require('../../db/entities');
 const { Admin } = require('../../db/entities');
 const jwt = require('../../utils/jwt.util');
 const mailerAuth = require('../../utils/nodemailer.auth.util');

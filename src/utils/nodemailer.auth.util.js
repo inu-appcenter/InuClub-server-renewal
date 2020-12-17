@@ -64,7 +64,7 @@ const mailerAuth = {
         } else {
           resolve(info);
         }
-      });
+      }); 
     })
       .then((state) => {
         return true; // 메일을 성공적으로 발송했을 때
