@@ -4,7 +4,7 @@ const { validationResult,param,body} = require('express-validator');
 const ClubsValidator = {
     addClubValidator: async (req,res,next)=>{
         await Promise.all([
-            body('name'),exists().withMessage("name가 존재하지 않아요").isString().isLength({max:15}).run(req),
+            body('name').exists().withMessage("name가 존재하지 않아요").isString().isLength({max:15}).run(req),
             body('category').exists().withMessage("category가 존재하지 않아요").isNumeric().run(req),
             body('content').exists().withMessage('content가 존재하지 않아요').run(req),
             body('phone').exists().withMessage('phone가 존재하지 않아요').run(req),

@@ -34,7 +34,7 @@ function introRouter({ APIRouter }) {
    * @request @body { name, category, content, phone, site, url, masterName }
    *          @body { src}
    */
-  router.post('/',uploadImg.array('userfile',5),addClub);
+  router.post('/',uploadImg.array('userfile',5),addClubValidator,addClub);
 
   /**
    * @description 동아리 소개 수정하기
@@ -42,7 +42,7 @@ function introRouter({ APIRouter }) {
    * @request @body { name?, master?, phone?, local?, personnel?, application?, content? }
    *
    */
-  router.put('/:clubId', modifyClub);
+  router.put('/:clubId',uploadImg.array('userfile',5), modifyClub);
 
   /**
    * @description 동아리 소개 삭제하기
