@@ -1,5 +1,6 @@
 const { Club } = require('../../db/entities');
 const { Image } = require('../../db/entities');
+const fs = require('fs');
 
 const IntroService = {
   getClubIntro: async ({ id }) => {
@@ -24,14 +25,13 @@ const IntroService = {
     if(src.length === 0){
       return true;
     }
-
+    console.log(src);
     for (const s of src) {
       const imageCreated = await Image.create({src: s, ClubId: club.id});
       if (!imageCreated) {
         return false;
       }
     }
-
     return true;
   },
   /**
@@ -44,6 +44,7 @@ const IntroService = {
    */
   updateClubIntro: async ({body,adminId,clubId,src}) =>{
     
+    console.log(clubId);
     const result = await Club.update(
       {...body },
       {where: {AdminId: adminId, id: clubId}},
@@ -54,11 +55,6 @@ const IntroService = {
       return false;
     }
 
-    // Club updated
-
-
-    console.log(numberOfAffectedRows);
-
     if (!src) {
       return false;
     }
@@ -66,17 +62,40 @@ const IntroService = {
     if(src.length === 0){
       return true;
     }
-
-    // destroy images
-    for(const s of src){ // 이부분 es6 문법으로 바꾸길 원함..
-      // create
-      await Image.update(
-        {src: s},
-        {where:{ClubId: clubId}},
-        );
+    console.log(clubId);
+    console.log(src)
+    const imageName = await Image.findAll({
+        raw:true, // raw를 추가하면 attributes에서 원하는 속성만 깔끔하게 가져옴.
+        where: {ClubId:clubId},
+        attributes: ['src'],
+      });
+      
+    const results = imageName.map(e=>e.src);
+    
+    for(const i of results){
+      const fileStr = JSON.stringify(i);
+      const fileName = fileStr.replace(/["]+/g, '');
+      fs.unlink(`/Applications/PSH/INUClub/InuClub-server-renewal/${fileName}`,function(err){
+        if(err) throw err;
+        console.log('file deleted');
+      });
     }
+    // destroy images
+    const imageDeleted = await Image.destroy({where:{ClubId:clubId}});
+    if(!imageDeleted){
+      return false;
+    }
+    else{
+    for(const s of src){ 
+      // create
+      const imageCreated = await Image.create({src: s, ClubId: clubId});
+      if (!imageCreated) {
+        return false;
+          }
+        }
     return true;
-  }
+     }
+    }
 
 };
 module.exports = IntroService;

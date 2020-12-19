@@ -18,8 +18,8 @@ const uploadImg = multer({
         filename : (req,file,cb)=>{
             const arr = file.originalname.split('.');
             let type = arr[arr.length -1];
-            //req.fileName = `${Date.now()}.${type}`;
-            cb(null,`${file.originalname}.${type}`);
+            req.fileName = `${Date.now()}.${type}`;
+            cb(null,`${Date.now()}.${type}`);
 
         },
     }),

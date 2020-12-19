@@ -12,7 +12,7 @@ function loadExpressMiddleware({ app }) {
     app.use(morgan('dev'));
     app.use(express.json());
     app.use(express.urlencoded({ extended: true }));
-    app.use(express.static(path.join(__dirname,'intro_image')));
+    app.use(express.static(path.join('intro_image')));
     app.use(hpp());
     app.use(cors());
   } catch (e) {

@@ -8,9 +8,8 @@ const IntroController = {
     const body = req.body;
     const {id} = req.admin;
     const src = req.files.map(file=>file.path);
-    // TODO
-    console.log(req.files.length);
-     try{
+    
+    try{
       await IntroService.createClubIntro({body, adminId: id,src});
       res.status(201).json({ success: true });
     }catch(e){
@@ -25,7 +24,7 @@ const IntroController = {
     const src = req.files.map(file=>file.path);
     
     try{
-      const isUpdated = await IntroService.updateClubIntro({body,clubId,adminId:id,src});
+      const isUpdated = await IntroService.updateClubIntro({body,adminId:id,clubId,src});
       if(isUpdated) res.status(201).json({success:true});
       else res.status(403).json({success:true, message:'작성자가 아니거나 혹은 현재 동아리 소개를 수정할 수 없습니다.'});
     } catch (e) {
