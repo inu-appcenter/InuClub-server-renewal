@@ -26,13 +26,21 @@ const IntroController = {
     try{
       const isUpdated = await IntroService.updateClubIntro({body,adminId:id,clubId,src});
       if(isUpdated) res.status(201).json({success:true});
-      else res.status(403).json({success:true, message:'작성자가 아니거나 혹은 현재 동아리 소개를 수정할 수 없습니다.'});
+      else res.status(403).json({success:true, message:'작성자가 아니거나 혹은 현재 동아리 소개 페이지를 수정할 수 없습니다.'});
     } catch (e) {
       next(e);
     } 
   },
-  removeClub: (req, res, next) => {
-    res.send('remove club');
+  removeClub: async (req, res, next) => {
+    const {clubId} = req.params;
+    const {id} = req.admin;
+    try{
+      const isDestroyed = await IntroService.destroyClubIntro({clubId,adminId:id});
+      if(isDestroyed) res.status(200).json({success:true});
+      else res.status(403).json({success:false,message:"작성자가 아니거나 혹은 현재 동아리 소개 페이지를 삭제할 수 없습니다."})
+    } catch (e){
+      next(e)
+    }
   },
   getClubsByCategory: (req, res, next) => {
     res.send('get clubs by category');

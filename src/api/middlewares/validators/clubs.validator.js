@@ -16,6 +16,17 @@ const ClubsValidator = {
             res.status(422).json({success:false,errors: errors.array()});
         else next();
     },
+    clubIdValidator: async (req,res,next)=>{
+        await param('clubId')
+            .exists().withMessage("clubId가 존재하지 않아요")
+            .isNumeric().withMessage("숫자만 들어올 수 있어요")
+            .run(req);
+        const errors = validationResult(req);
+        if (!errors.isEmpty())
+            res.status(422).json({success:false,errors:errors.array()});
+        else next();
+
+    },
 };
 
 module.exports = ClubsValidator;

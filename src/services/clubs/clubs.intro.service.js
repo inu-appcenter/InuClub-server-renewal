@@ -25,7 +25,7 @@ const IntroService = {
     if(src.length === 0){
       return true;
     }
-    console.log(src);
+    
     for (const s of src) {
       const imageCreated = await Image.create({src: s, ClubId: club.id});
       if (!imageCreated) {
@@ -44,7 +44,6 @@ const IntroService = {
    */
   updateClubIntro: async ({body,adminId,clubId,src}) =>{
     
-    console.log(clubId);
     const result = await Club.update(
       {...body },
       {where: {AdminId: adminId, id: clubId}},
@@ -62,8 +61,7 @@ const IntroService = {
     if(src.length === 0){
       return true;
     }
-    console.log(clubId);
-    console.log(src)
+    
     const imageName = await Image.findAll({
         raw:true, // raw를 추가하면 attributes에서 원하는 속성만 깔끔하게 가져옴.
         where: {ClubId:clubId},
@@ -95,7 +93,37 @@ const IntroService = {
         }
     return true;
      }
-    }
+    },
+    destroyClubIntro: async({adminId,clubId})=>{
+      const imageName = await Image.findAll({
+        raw:true, // raw를 추가하면 attributes에서 원하는 속성만 깔끔하게 가져옴.
+        where: {ClubId:clubId},
+        attributes: ['src'],
+      });
+      if(!imageName.length){
+        const clubDeleted = await Club.destroy({where:{AdminId:adminId,id:clubId}});
+        if (clubDeleted) return true;
+        return false
+      }
+      else{
+        const results = imageName.map(e=>e.src);
+    
+        for(const i of results){
+          const fileStr = JSON.stringify(i);
+          const fileName = fileStr.replace(/["]+/g, '');
+          fs.unlink(`/Applications/PSH/INUClub/InuClub-server-renewal/${fileName}`,function(err){
+            if(err) throw err;
+            console.log('file deleted');
+          });
+        };
+        // destroy images
+        const imageDeleted = await Image.destroy({where:{ClubId:clubId}});
+        const clubDeleted = await Club.destroy({where:{AdminId:adminId,id:clubId}});
+        if(imageDeleted&&clubDeleted) return true;
+        return false;
+      }
+     
+    },
 
 };
 module.exports = IntroService;

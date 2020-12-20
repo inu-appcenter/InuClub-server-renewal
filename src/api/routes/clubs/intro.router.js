@@ -8,7 +8,7 @@ const {
 } = require('../../../controllers/clubs/intro.controller');
 const { isUserLogin } = require('../../middlewares/auth/jwt.auth');
 const{ uploadImg } = require('../../middlewares/multer/clubs.intro.multer');
-const { addClubValidator } = require('../../middlewares/validators/clubs.validator')
+const { addClubValidator, clubIdValidator } = require('../../middlewares/validators/clubs.validator')
 const router = require('express').Router();
 
 function introRouter({ APIRouter }) {
@@ -42,13 +42,13 @@ function introRouter({ APIRouter }) {
    * @request @body { name?, master?, phone?, local?, personnel?, application?, content? }
    *
    */
-  router.put('/:clubId',uploadImg.array('userfile',5), modifyClub);
+  router.put('/:clubId',uploadImg.array('userfile',5),clubIdValidator, modifyClub);
 
   /**
    * @description 동아리 소개 삭제하기
    * @route DELETE /clubs/intro/:clubId
    */
-  router.delete('/:clubId', removeClub);
+  router.delete('/:clubId',clubIdValidator,removeClub);
 
   /**
    * @description 카테고리별로 동아리 리스트 불러오기
