@@ -94,6 +94,11 @@ const IntroService = {
     return true;
      }
     },
+  /**
+   * 동아리 소개 삭제하기
+   * @param {{clubId}} Club.id 동아리 PK
+   * @returns boolean
+   */
     destroyClubIntro: async({adminId,clubId})=>{
       const imageName = await Image.findAll({
         raw:true, // raw를 추가하면 attributes에서 원하는 속성만 깔끔하게 가져옴.
