@@ -27,19 +27,20 @@ const jwt = {
         secretKey = process.env.INU_CLUBS_KEY || '';
         break;
     }
+
     return jsonwebtoken.verify(token, secretKey);
   },
 
-  sign: ({adminId,key}) => {
-    let secretKey ;
-    if(key=='inu-clubs'){
-      secretKey = process.env.INU_CLUBS_KEY || '';
-      const token = jwt.sign({
-        adminId,
-      },secretKey)
-    return token
-    }
-    return null
+  sign: ({ adminId }) => {
+    let secretKey = process.env.INU_CLUBS_KEY || '';
+    const token = jsonwebtoken.sign(
+      {
+        adminId: adminId,
+      },
+      secretKey,
+    );
+
+    return token;
   },
 };
 

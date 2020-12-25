@@ -3,6 +3,7 @@ const morgan = require('morgan');
 const hpp = require('hpp');
 const helmet = require('helmet');
 const cors = require('cors');
+const path = require('path')
 
 function loadExpressMiddleware({ app }) {
   console.log('loadExpressMiddleware start');
@@ -11,6 +12,7 @@ function loadExpressMiddleware({ app }) {
     app.use(morgan('dev'));
     app.use(express.json());
     app.use(express.urlencoded({ extended: true }));
+    app.use(express.static(path.join('intro_image')));
     app.use(hpp());
     app.use(cors());
   } catch (e) {
@@ -21,3 +23,4 @@ function loadExpressMiddleware({ app }) {
 }
 
 module.exports = loadExpressMiddleware;
+;
