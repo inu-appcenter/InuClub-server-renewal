@@ -13,7 +13,7 @@ const uploadImg = multer({
     },
     storage : multer.diskStorage({
         destination: (req,file,cb)=>{
-            cb(null,'intro_image')
+            cb(null,'public/intro_image')
         },
         filename : (req,file,cb)=>{
             const arr = file.originalname.split('.');

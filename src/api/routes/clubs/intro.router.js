@@ -26,7 +26,7 @@ function introRouter({ APIRouter }) {
    * @description 동아리 소개 조회
    * @route GET /clubs/intro/:clubId
    */
-  router.get('/:clubId', getClub);
+  router.get('/:clubId', clubIdValidator,getClub);
 
   /**
    * @description 동아리 소개 등록하기

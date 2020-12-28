@@ -3,8 +3,28 @@ const { Image } = require('../../db/entities');
 const fs = require('fs');
 
 const IntroService = {
-  getClubIntro: async ({ id }) => {
-    const club = await Club.findOne({ where: { id } });
+  getClubIntro: async ({ clubId,adminId }) => {
+    const club = await Club.findOne({ where: { id:clubId,AdminId:adminId } });
+    
+    if(!club) return null;
+
+    const [c,i] = await Promise.all([
+      club.getImages({
+        attributes:['src']
+      }),
+    ])
+    const fileNames = c.map(src=>src.toJSON());
+
+    return {
+      name:club.name,
+      category:club.category,
+      content:club.content,
+      phone:club.phone,
+      site:club.site,
+      url:club.url,
+      masterName:club.masterName,
+      src:fileNames.map(c=>({URL:c.src})),
+    }
   },
   /**
    * 동아리 소개 생성하기

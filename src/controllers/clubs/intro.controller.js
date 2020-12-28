@@ -1,9 +1,17 @@
 const IntroService =require('../../services/clubs/clubs.intro.service')
 
 const IntroController = {
-  getClub: (req, res, next) => {
-    res.send('get club');
+  getClub: async (req, res, next) => {
+    const {clubId} = req.params;
+    const {id} = req.admin;
+    try{
+      const clubIntro = await IntroService.getClubIntro({clubId,adminId:id});
+      res.status(200).json({success:true,clubIntro});
+    }catch(e){
+      next(e);
+    }
   },
+
   addClub: async (req, res, next)=> {
     const body = req.body;
     const {id} = req.admin;
@@ -17,6 +25,7 @@ const IntroController = {
     }
 
   },
+
   modifyClub: async (req, res, next) => {
     const body = req.body;
     const {clubId} = req.params;
@@ -31,6 +40,7 @@ const IntroController = {
       next(e);
     } 
   },
+
   removeClub: async (req, res, next) => {
     const {clubId} = req.params;
     const {id} = req.admin;
@@ -42,9 +52,11 @@ const IntroController = {
       next(e)
     }
   },
+
   getClubsByCategory: (req, res, next) => {
     res.send('get clubs by category');
   },
+
   searchClub: (req, res, next) => {
     console.log('search');
     res.send('search club');
