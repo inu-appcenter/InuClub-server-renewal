@@ -23,7 +23,7 @@ const IntroService = {
       site:club.site,
       url:club.url,
       masterName:club.masterName,
-      src:fileNames.map(c=>({URL:c.src})),
+      src:fileNames.map(c=>({URL:process.env.DOMAIN+c.src})),
     }
   },
   /**
