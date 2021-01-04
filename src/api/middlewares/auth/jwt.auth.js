@@ -23,6 +23,7 @@ const authMiddleware = {
         req.user = { ...decoded, ...user.toJSON() };
       } catch (e) {
         next(e);
+        return;
       }
     } else if (key === 'inu-clubs') {
       try {
@@ -32,7 +33,11 @@ const authMiddleware = {
         req.admin = { ...decoded, ...admin.toJSON() };
       } catch (e) {
         next(e);
+        return;
       }
+    } else {
+      next(new Error("어떻게 이런일이 생길수가있져!?!?!?! key가 옳바르지 않습니다."));
+      return;
     }
 
     next();

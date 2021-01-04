@@ -2,6 +2,7 @@ const { validationResult,param,body} = require('express-validator');
 
 // 422 Unprocessable Entity
 const ClubsValidator = {
+    
     addClubValidator: async (req,res,next)=>{
         await Promise.all([
             body('name').exists().withMessage("name가 존재하지 않아요").isString().isLength({max:15}).run(req),

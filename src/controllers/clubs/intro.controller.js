@@ -54,12 +54,20 @@ const IntroController = {
   },
 
   getClubsByCategory: (req, res, next) => {
-    res.send('get clubs by category');
+    
+    try{
+
+    }catch(e){
+      next(e)
+    }
   },
 
   searchClub: (req, res, next) => {
-    console.log('search');
-    res.send('search club');
+    try{
+      
+    }catch(e){
+      next(e)
+    }
   },
 };
 

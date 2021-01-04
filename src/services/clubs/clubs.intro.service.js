@@ -1,8 +1,13 @@
-const { Club } = require('../../db/entities');
-const { Image } = require('../../db/entities');
+const { Club, Image } = require('../../db/entities');
+const getCategory = require('../../info/category.info');
 const fs = require('fs');
 
 const IntroService = {
+  /**
+   * 동아리 소개 상세페이지 조회
+   * @params {clubId}
+   * @returns {userfile,name,category,content,phone,site,url,masterName}
+   */
   getClubIntro: async ({ clubId,adminId }) => {
     const club = await Club.findOne({ where: { id:clubId,AdminId:adminId } });
     
@@ -17,7 +22,7 @@ const IntroService = {
 
     return {
       name:club.name,
-      category:club.category,
+      category:getCategory({num:club.category}),
       content:club.content,
       phone:club.phone,
       site:club.site,
