@@ -5,10 +5,12 @@ const {
   modifyEvent,
   removeEvent,
 } = require('../../../controllers/clubs/events.controller');
+const { isUserLogin } = require('../../middlewares/auth/jwt.auth');
 const router = require('express').Router();
 
 function eventRouter({ APIRouter }) {
   APIRouter.use('/events', router);
+
   /**
    * @description 행사 리스트 조회
    * @route GET /clubs/events/
@@ -24,9 +26,9 @@ function eventRouter({ APIRouter }) {
   /**
    * @description 행사 등록
    * @route POST /clubs/events
-   * @request @body {date, time, local, title, content}
+   * @request @body {date,startTime,endTime,location,title, content}
    */
-  router.post('/', addEvent);
+  router.post('/', isUserLogin({key: 'inu-clubs'}) ,addEvent);
 
   /**
    * @description 행사 수정

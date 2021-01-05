@@ -39,6 +39,7 @@ const AdminUserController = {
         const id = req.admin.id;
         try{
             const result = await AdminUserService.searchAdminUser({adminId:id,searchBar});
+            //검색결과가 없으면 빈배열 출력
             if(result) res.status(200).json({success:true,result});
             else res.status(403).json({success:false,message:"관리자가 아니거나 동아리원을 검색할 수가 없습니다."});
         }catch(e){
