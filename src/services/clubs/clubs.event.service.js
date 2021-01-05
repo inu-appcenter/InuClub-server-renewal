@@ -17,8 +17,10 @@ const EventService = {
         if(!clubId) return false; // 동아리 소개가 안된 동아리임.
         await Event.create({...body,AdminId:adminId,ClubId:clubId.id});
     },
-    updateClubEvent: async({})=>{
-
+    updateClubEvent: async({body,eventId,adminId})=>{
+        const result = await Event.update({...body},{where:{id:eventId,AdminId:adminId}});
+        if (result[0]) return true;
+        else return false;
     },
     destroyClubEvent: async({})=>{
 

@@ -28,14 +28,14 @@ function eventRouter({ APIRouter }) {
    * @route POST /clubs/events
    * @request @body {date,startTime,endTime,location,title, content}
    */
-  router.post('/', isUserLogin({key: 'inu-clubs'}) ,addEvent);
+  router.post('/',isUserLogin({key: 'inu-clubs'}) ,addEvent);
 
   /**
    * @description 행사 수정
    * @route PUT /clubs/events/:eventId
    * @request @body {date, time, local, title, content}
    */
-  router.put('/:eventId', modifyEvent);
+  router.put('/:eventId',isUserLogin({key: 'inu-clubs'}),modifyEvent);
 
   /**
    * @description 행사 삭제
