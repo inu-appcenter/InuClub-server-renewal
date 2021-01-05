@@ -14,16 +14,23 @@ const EventService = {
             where : {AdminId:adminId},
             attributes: ['id'],
         });
-        if(!clubId) return false; // 동아리 소개가 안된 동아리임.
+        
+        if(!clubId) return null; // 동아리 소개가 안된 동아리임.
+        else{
         await Event.create({...body,AdminId:adminId,ClubId:clubId.id});
+        return true;
+        }
     },
     updateClubEvent: async({body,eventId,adminId})=>{
         const result = await Event.update({...body},{where:{id:eventId,AdminId:adminId}});
         if (result[0]) return true;
         else return false;
     },
-    destroyClubEvent: async({})=>{
+    destroyClubEvent: async({eventId,adminId})=>{
 
+        const result = await Event.destroy({where:{id:eventId,AdminId:adminId}});
+        if(result) return true;
+        return false;
     },
 }
 

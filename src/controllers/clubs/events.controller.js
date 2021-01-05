@@ -24,7 +24,7 @@ const EventsController = {
     const {eventId} = req.params;
     try{
       const result = await EventService.updateClubEvent({body,eventId,adminId:id});
-      console.log(result);
+      
       if(result) res.status(200).json({success:true});
       else res.status(403).json({success:false,message:"동아리소개가 없는 동아리이거나 동아리 이벤트를 수정할 수 없습니다."});
     }catch (e){
@@ -32,7 +32,15 @@ const EventsController = {
     }
   },
   removeEvent: async (req, res, next) => {
-    res.send('remove event');
+    const {id} = req.admin;
+    const {eventId} = req.params;
+    try{
+      const result = await EventService.destroyClubEvent({eventId,adminId:id});
+      if(result) res.status(200).json({success:true});
+      else res.status(403).json({success:false,message:"동아리소개가 없는 동아리거나 동아리 이벤트를 삭제할 수 없습니다."});
+    }catch (e){
+      next(e);
+    }
   },
 };
 

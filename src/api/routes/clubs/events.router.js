@@ -41,7 +41,7 @@ function eventRouter({ APIRouter }) {
    * @description 행사 삭제
    * @route DELETE /clubs/events/:eventId
    */
-  router.delete('/:eventId', removeEvent);
+  router.delete('/:eventId',isUserLogin({key: 'inu-clubs'}),removeEvent);
 }
 
 module.exports = eventRouter;
