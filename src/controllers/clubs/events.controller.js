@@ -2,10 +2,20 @@ const EventService =require('../../services/clubs/clubs.event.service');
 
 const EventsController = {
   getEvents: async(req, res, next) => {
-    res.send('get events');
+    try{
+      
+    } catch(e){
+      next(e);
+    }
   },
   getEvent: async(req, res, next) => {
-    res.send('get event');
+    const {eventId} = req.params;
+    try{
+      const event = await EventService.getClubEvent({eventId});
+      res.status(200).json({ success: true, event });
+    }catch(e) {
+      next(e);
+    }
   },
   addEvent: async (req, res, next) => {
     const {id} = req.admin;

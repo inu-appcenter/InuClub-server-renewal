@@ -22,7 +22,7 @@ function eventRouter({ APIRouter }) {
    * @description 행사 조회
    * @route GET /clubs/events/:eventId
    */
-  router.get('/:eventId', getEvent);
+  router.get('/:eventId', eventIdValidator, getEvent);
 
   /**
    * @description 행사 등록

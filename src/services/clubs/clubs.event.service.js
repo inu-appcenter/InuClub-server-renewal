@@ -2,8 +2,17 @@ const {Event, Club} = require('../../db/entities');
 
 const EventService = {
 
-    getClubEvent: async({})=>{
-
+    getClubEvent: async({eventId})=>{
+        const event = await Event.findOne({where: {id: eventId}});
+        if (!event) return null;
+        return {
+            title: event.title,
+            content: event.content,
+            location: event.location,
+            date: event.date,
+            startTime: event.startTime,
+            endTime: event.endTime,
+        }
     },
     getClubEvents: async({})=>{
 
