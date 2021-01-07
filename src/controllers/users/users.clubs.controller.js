@@ -18,6 +18,14 @@ const UsersClubsController = {
       next(e);
     }
   },
+
+  getClubsByCategory: (req, res, next) => {
+   
+  },
+
+  getClubsBySearch: (req, res, next) => {
+  
+  },
 };
 
 module.exports = UsersClubsController;

@@ -6,20 +6,14 @@ const {
   removeEvent,
 } = require('../../../controllers/clubs/events.controller');
 const { isUserLogin } = require('../../middlewares/auth/jwt.auth');
-const { addEventValidator,eventIdValidator} = require('../../middlewares/validators/clubs.validator');
+const { clubIdValidator,addEventValidator,eventIdValidator} = require('../../middlewares/validators/clubs.validator');
 const router = require('express').Router();
 
 function eventRouter({ APIRouter }) {
   APIRouter.use('/events', router);
 
   /**
-   * @description 행사 리스트 조회
-   * @route GET /clubs/events/
-   */
-  router.get('/', getEvents);
-
-  /**
-   * @description 행사 조회
+   * @description 행사 상세 정보 조회
    * @route GET /clubs/events/:eventId
    */
   router.get('/:eventId', eventIdValidator, getEvent);

@@ -14,9 +14,7 @@ const EventService = {
             endTime: event.endTime,
         }
     },
-    getClubEvents: async({})=>{
-
-    },
+    
     createClubEvent: async({body,adminId})=>{
         const clubId = await Club.findOne({
             raw:true,
@@ -30,11 +28,13 @@ const EventService = {
         return true;
         }
     },
+
     updateClubEvent: async({body,eventId,adminId})=>{
         const result = await Event.update({...body},{where:{id:eventId,AdminId:adminId}});
         if (result[0]) return true;
         else return false;
     },
+    
     destroyClubEvent: async({eventId,adminId})=>{
 
         const result = await Event.destroy({where:{id:eventId,AdminId:adminId}});

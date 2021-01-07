@@ -1,7 +1,7 @@
 const {
     addAdminUser,
     removeAdminUser,
-    getAdminUser,
+    getAdminUsers,
     searchAdminUser,
 } = require('../../../controllers/administrator/admin.user.controller');
 const { isUserLogin } = require('../../middlewares/auth/jwt.auth');
@@ -16,7 +16,7 @@ function adminUserRouter({APIRouter}) {
      * @route get /admin/user/list
      * @request @token
      */
-    router.get('/list',getAdminUser);
+    router.get('/list',getAdminUsers);
     /**
      * @description 관리자 동아리원 등록
      * @routes POST /admin/user/

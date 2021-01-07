@@ -3,7 +3,7 @@ const Op = Sequelize.Op;
 
 const AdminUserService = {
 
-    getAdminUser: async ({adminId})=>{
+    getAdminUsers: async ({adminId})=>{
         const club = await Club.findOne({
             where: {AdminId:adminId},
             

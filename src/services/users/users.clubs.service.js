@@ -1,5 +1,6 @@
-const { User, Image, Event } = require('../../db/entities');
+const { User, Image, Event, Club, Sequelize } = require('../../db/entities');
 const { formatDate } = require('../../utils/moment.util');
+const Op = Sequelize.Op;
 
 const UsersClubsService = {
   /**
@@ -55,6 +56,10 @@ const UsersClubsService = {
   },
 
   getRecommendClubs: () => {},
+
+  getSearchClubs: async({searchBar}) => {
+  },
+  getCategoryClubs:() =>{},
 };
 
 module.exports = UsersClubsService;

@@ -53,22 +53,6 @@ const IntroController = {
     }
   },
 
-  getClubsByCategory: (req, res, next) => {
-    
-    try{
-
-    }catch(e){
-      next(e)
-    }
-  },
-
-  searchClub: (req, res, next) => {
-    try{
-      
-    }catch(e){
-      next(e)
-    }
-  },
 };
 
 module.exports = IntroController;

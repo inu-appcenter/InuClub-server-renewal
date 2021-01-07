@@ -4,7 +4,7 @@ const fs = require('fs');
 
 const IntroService = {
   /**
-   * 동아리 소개 상세페이지 조회
+   * 동아리 소개 상세 정보 조회
    * @params {clubId}
    * @returns {userfile,name,category,content,phone,site,url,masterName}
    */

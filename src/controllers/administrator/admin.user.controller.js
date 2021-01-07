@@ -24,10 +24,10 @@ const AdminUserController = {
             next(e);
         }
     },
-    getAdminUser: async (req,res,next) => {
+    getAdminUsers: async (req,res,next) => {
         const id = req.admin.id;
         try{
-            const adminUsersList = await AdminUserService.getAdminUser({adminId:id});
+            const adminUsersList = await AdminUserService.getAdminUsers({adminId:id});
             if(adminUsersList) res.status(200).json({success:true,adminUsersList});
             else res.status(403).json({success:false,message:"관리자가 아니거나 동아리원 목록을 불러올 수 없습니다."});
         }catch(e){
